@@ -15,7 +15,7 @@ app.use(express.static('public'));
 app.use('/admin', express.static('admin'));
 
 const pool = new Pool({
-    connectionString: 'postgresql://nuitbanker_db_user:Gbnwn5eEqlrKkx4xjduxGis0DchI1aXy@dpg-d8h40ccvikkc73erecng-a.oregon-postgres.render.com/nuitbanker_db',
+    connectionString: 'postgresql://cacamba_ativa_user:Gf5XcI8BMiR2rZkq1iuan5ajSdlQDHle@dpg-d9sgljdbedkc73dh97f0-a.ohio-postgres.render.com/cacamba_ativa',
     ssl: { rejectUnauthorized: false },
     max: 20,
     idleTimeoutMillis: 30000,
