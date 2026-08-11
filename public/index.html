@@ -10,13 +10,11 @@
 </head>
 <body>
 
-    <!-- Topbar -->
     <div class="topbar">
-        <span>Frete gratis em compras selecionadas</span>
-        <span>Rastreie seu pedido · Central de ajuda</span>
+        <span>Bem-vindo ao Magalu</span>
+        <span>Central de ajuda · Rastreie seu pedido</span>
     </div>
 
-    <!-- Header -->
     <header class="header">
         <a href="/" class="logo">
             <i class="fas fa-store" style="font-size:28px; color:#fff;"></i>
@@ -27,73 +25,55 @@
             <button type="submit"><i class="fas fa-search"></i></button>
         </form>
         <div class="header-icones">
-            <a href="/favoritos.html"><span class="icone"><i class="far fa-heart"></i></span>Favoritos</a>
             <a href="/carrinho.html"><span class="icone"><i class="fas fa-shopping-cart"></i></span>Sacola</a>
             <a href="/admin/"><span class="icone"><i class="fas fa-user-cog"></i></span>Admin</a>
         </div>
     </header>
     <hr class="header-divider">
 
-    <!-- Menu Categorias -->
-    <ul class="menu-categorias">
-        <li data-categoria="Celulares">Celulares</li>
-        <li data-categoria="TV e Video">TV e Video</li>
-        <li data-categoria="Eletrodomesticos">Eletrodomesticos</li>
-        <li data-categoria="Moveis">Moveis</li>
-        <li data-categoria="Informatica">Informatica</li>
-        <li data-categoria="Moda">Moda</li>
-        <li data-categoria="Casa">Casa</li>
-        <li data-categoria="Ferramentas">Ferramentas</li>
-        <li data-categoria="Brinquedos">Brinquedos</li>
-        <li data-categoria="Automotivo">Automotivo</li>
-        <li><a href="/categoria.html">Todas as categorias</a></li>
+    <ul class="menu-categorias" id="menuCategorias">
+        <li data-categoria="todos" class="ativo">Todos</li>
+        <li data-categoria="categoria1">Categoria 1</li>
+        <li data-categoria="categoria2">Categoria 2</li>
+        <li data-categoria="categoria3">Categoria 3</li>
     </ul>
 
-    <!-- Banner -->
     <div class="banner">
         <div class="banner-content">
-            Ofertas imperdiveis
-            <small>Smartphones, eletronicos e muito mais</small>
-            <a href="/ofertas.html" class="banner-btn">Ver ofertas</a>
+            Ofertas imperdíveis
+            <small>Os melhores produtos com os melhores preços</small>
+            <a href="/produtos.html" class="banner-btn">Ver produtos</a>
         </div>
     </div>
 
-    <!-- Atalhos -->
     <div class="atalhos">
-        <div class="atalho" data-categoria="Ofertas"><div class="circulo"><i class="fas fa-tag"></i></div><span>Ofertas do dia</span></div>
-        <div class="atalho" data-categoria="Casa"><div class="circulo"><i class="fas fa-home"></i></div><span>Casa</span></div>
-        <div class="atalho" data-categoria="Ferramentas"><div class="circulo"><i class="fas fa-tools"></i></div><span>Ferramentas</span></div>
-        <div class="atalho" data-categoria="Eletroportateis"><div class="circulo"><i class="fas fa-blender"></i></div><span>Eletroportateis</span></div>
-        <div class="atalho" data-categoria="Brinquedos"><div class="circulo"><i class="fas fa-gamepad"></i></div><span>Brinquedos</span></div>
-        <div class="atalho" data-categoria="Automotivo"><div class="circulo"><i class="fas fa-car"></i></div><span>Automotivo</span></div>
-        <div class="atalho" data-categoria="Utilidades"><div class="circulo"><i class="fas fa-couch"></i></div><span>Utilidades</span></div>
+        <div class="atalho" onclick="window.location.href='/produtos.html'">
+            <div class="circulo"><i class="fas fa-box"></i></div>
+            <span>Produtos</span>
+        </div>
+        <div class="atalho" onclick="window.location.href='/checkout.html'">
+            <div class="circulo"><i class="fas fa-credit-card"></i></div>
+            <span>Pagamentos</span>
+        </div>
+        <div class="atalho" onclick="window.location.href='/admin/'">
+            <div class="circulo"><i class="fas fa-user-cog"></i></div>
+            <span>Admin</span>
+        </div>
     </div>
 
-    <!-- Secao Ofertas -->
     <section class="secao">
         <div class="secao-titulo">
-            <h2><i class="fas fa-fire"></i> Ofertas do dia</h2>
-            <a href="/ofertas.html">Ver tudo <i class="fas fa-chevron-right" style="font-size:10px;"></i></a>
+            <h2><i class="fas fa-fire"></i> Produtos em destaque</h2>
+            <a href="/produtos.html">Ver tudo <i class="fas fa-chevron-right" style="font-size:10px;"></i></a>
         </div>
-        <div class="grid-produtos" id="grid-ofertas"></div>
+        <div class="grid-produtos" id="gridProdutos"></div>
     </section>
 
-    <!-- Faixa Promocional -->
     <div class="faixa">
-        <h3><i class="fas fa-gift"></i> Cadastre-se e ganhe 10% de desconto na primeira compra</h3>
-        <button onclick="alert('Cadastro realizado com sucesso!')">Quero meu cupom</button>
+        <h3><i class="fas fa-gift"></i> Cadastre-se e ganhe 10% de desconto</h3>
+        <button onclick="window.location.href='/checkout.html'">Quero meu cupom</button>
     </div>
 
-    <!-- Secao Mais Vendidos -->
-    <section class="secao">
-        <div class="secao-titulo">
-            <h2><i class="fas fa-star"></i> Mais vendidos</h2>
-            <a href="/ofertas.html">Ver tudo <i class="fas fa-chevron-right" style="font-size:10px;"></i></a>
-        </div>
-        <div class="grid-produtos" id="grid-vendidos"></div>
-    </section>
-
-    <!-- Rodape -->
     <footer>
         <div class="rodape-colunas">
             <div>
@@ -102,16 +82,14 @@
                     <li>Sobre a loja</li>
                     <li>Trabalhe conosco</li>
                     <li>Sustentabilidade</li>
-                    <li>Imprensa</li>
                 </ul>
             </div>
             <div>
                 <h4>Ajuda</h4>
                 <ul>
                     <li>Central de atendimento</li>
-                    <li>Trocas e devolucoes</li>
+                    <li>Trocas e devoluções</li>
                     <li>Formas de pagamento</li>
-                    <li>Rastrear pedido</li>
                 </ul>
             </div>
             <div>
@@ -120,24 +98,80 @@
                     <li>Meus pedidos</li>
                     <li>Meus dados</li>
                     <li>Favoritos</li>
-                    <li>Cartao da loja</li>
                 </ul>
             </div>
             <div>
-                <h4>Redes sociais</h4>
+                <h4>Contato</h4>
                 <ul>
-                    <li>Instagram</li>
-                    <li>Facebook</li>
-                    <li>Twitter / X</li>
-                    <li>Pinterest</li>
+                    <li>Email: contato@magalu.com</li>
+                    <li>Telefone: (11) 99999-9999</li>
                 </ul>
             </div>
         </div>
         <div class="rodape-baixo">
-            Magazine Luiza S/A - CNPJ: 47.960.950/1088-36 - Todos os direitos reservados.
+            Magalu - Todos os direitos reservados.
         </div>
     </footer>
 
-    <script src="/js/main.js"></script>
+    <script>
+        let produtos = [];
+
+        async function carregarProdutos() {
+            try {
+                const response = await fetch('/api/produtos');
+                const data = await response.json();
+                if (data.success) {
+                    produtos = data.produtos || [];
+                    renderizarProdutos();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar produtos:', error);
+                document.getElementById('gridProdutos').innerHTML = 
+                    '<p style="grid-column:1/-1; text-align:center; padding:40px; color:#697277;">Erro ao carregar produtos</p>';
+            }
+        }
+
+        function renderizarProdutos() {
+            const grid = document.getElementById('gridProdutos');
+
+            if (!produtos || produtos.length === 0) {
+                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px; color:#697277;">Nenhum produto disponível</p>';
+                return;
+            }
+
+            grid.innerHTML = produtos.map(p => `
+                <div class="card" onclick="window.location.href='/produto.html?id=${p.id}'">
+                    ${p.preco_promocional ? `<div class="selo">OFERTA</div>` : ''}
+                    <div class="card-imagem">
+                        <i class="fas fa-box" style="font-size:36px; opacity:0.3;"></i>
+                    </div>
+                    <div class="card-titulo">${p.nome || 'Produto'}</div>
+                    <div class="card-avaliacao">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <span>(0)</span>
+                    </div>
+                    ${p.preco_promocional ? `
+                        <div class="card-desconto">-${Math.round((1 - p.preco_promocional/p.preco) * 100)}%</div>
+                        <div class="card-preco-de">R$ ${p.preco.toFixed(2).replace('.', ',')}</div>
+                        <div class="card-preco-por">R$ ${p.preco_promocional.toFixed(2).replace('.', ',')} <span>à vista</span></div>
+                    ` : `
+                        <div class="card-preco-por">R$ ${p.preco.toFixed(2).replace('.', ',')} <span>à vista</span></div>
+                    `}
+                    <button class="btn-comprar" onclick="event.stopPropagation(); window.location.href='/produto.html?id=${p.id}'">
+                        <i class="fas fa-shopping-bag"></i> Ver produto
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                window.location.href = '/busca.html?q=' + encodeURIComponent(this.value);
+            }
+        });
+
+        carregarProdutos();
+    </script>
+
 </body>
 </html>
