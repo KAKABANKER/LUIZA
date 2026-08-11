@@ -18,7 +18,6 @@
             margin: 24px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.05);
         }
-
         .produto-imagem {
             background: #f8fafc;
             border-radius: 12px;
@@ -27,63 +26,18 @@
             align-items: center;
             justify-content: center;
             border: 1px solid #edf2f7;
-            font-size: 48px;
-            color: #b8c1c4;
+            font-size: 80px;
+            color: #d3dadd;
         }
-
-        .produto-info h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1e2428;
-            margin-bottom: 8px;
-        }
-
-        .produto-info .avaliacao {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .produto-info .avaliacao i {
-            color: #fbbf24;
-        }
-
-        .produto-info .preco {
-            margin: 16px 0;
-        }
-
-        .produto-info .preco .de {
-            font-size: 16px;
-            color: #697277;
-            text-decoration: line-through;
-        }
-
-        .produto-info .preco .por {
-            font-size: 36px;
-            font-weight: 700;
-            color: #1e2428;
-        }
-
-        .produto-info .preco .por small {
-            font-size: 16px;
-            font-weight: 400;
-            color: #697277;
-        }
-
-        .produto-info .parcelas {
-            color: #1cb35c;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-
-        .produto-info .descricao {
-            color: #4b5563;
-            line-height: 1.6;
-            margin: 16px 0;
-        }
-
+        .produto-info h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+        .produto-info .avaliacao { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+        .produto-info .avaliacao i { color: #fbbf24; }
+        .produto-info .preco { margin: 16px 0; }
+        .produto-info .preco .de { font-size: 16px; color: #697277; text-decoration: line-through; }
+        .produto-info .preco .por { font-size: 36px; font-weight: 700; color: #1e2428; }
+        .produto-info .preco .por small { font-size: 16px; font-weight: 400; color: #697277; }
+        .produto-info .parcelas { color: #1cb35c; font-weight: 600; font-size: 14px; margin-bottom: 16px; }
+        .produto-info .descricao { color: #4b5563; line-height: 1.6; margin: 16px 0; }
         .produto-info .btn-comprar {
             background: #0086ff;
             color: #fff;
@@ -96,12 +50,7 @@
             transition: 0.2s;
             margin-top: 16px;
         }
-
-        .produto-info .btn-comprar:hover {
-            background: #0075e2;
-            transform: scale(1.02);
-        }
-
+        .produto-info .btn-comprar:hover { background: #0075e2; transform: scale(1.02); }
         .produto-info .btn-carrinho {
             background: transparent;
             color: #0086ff;
@@ -114,38 +63,20 @@
             transition: 0.2s;
             margin-left: 12px;
         }
-
-        .produto-info .btn-carrinho:hover {
-            background: #0086ff;
-            color: #fff;
-        }
-
+        .produto-info .btn-carrinho:hover { background: #0086ff; color: #fff; }
         @media (max-width: 700px) {
-            .produto-detalhe {
-                grid-template-columns: 1fr;
-                padding: 20px;
-                margin: 12px;
-            }
-
-            .produto-imagem {
-                height: 250px;
-            }
-
-            .produto-info h1 {
-                font-size: 22px;
-            }
-
-            .produto-info .preco .por {
-                font-size: 28px;
-            }
+            .produto-detalhe { grid-template-columns: 1fr; padding: 20px; margin: 12px; }
+            .produto-imagem { height: 250px; }
+            .produto-info h1 { font-size: 22px; }
+            .produto-info .preco .por { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
     <div class="topbar">
-        <span>Frete gratis em compras selecionadas</span>
-        <span>Rastreie seu pedido · Central de ajuda</span>
+        <span>Bem-vindo ao Magalu</span>
+        <span>Central de ajuda · Rastreie seu pedido</span>
     </div>
 
     <header class="header">
@@ -158,7 +89,6 @@
             <button type="submit"><i class="fas fa-search"></i></button>
         </form>
         <div class="header-icones">
-            <a href="/favoritos.html"><span class="icone"><i class="far fa-heart"></i></span>Favoritos</a>
             <a href="/carrinho.html"><span class="icone"><i class="fas fa-shopping-cart"></i></span>Sacola</a>
             <a href="/admin/"><span class="icone"><i class="fas fa-user-cog"></i></span>Admin</a>
         </div>
@@ -166,8 +96,8 @@
     <hr class="header-divider">
 
     <div class="produto-detalhe" id="produtoDetalhe">
-        <div class="produto-imagem">
-            <i class="fas fa-image"></i>
+        <div class="produto-imagem" id="produtoImagem">
+            <i class="fas fa-box"></i>
         </div>
         <div class="produto-info">
             <h1 id="produtoNome">Carregando...</h1>
@@ -193,39 +123,26 @@
                     <li>Sobre a loja</li>
                     <li>Trabalhe conosco</li>
                     <li>Sustentabilidade</li>
-                    <li>Imprensa</li>
                 </ul>
             </div>
             <div>
                 <h4>Ajuda</h4>
                 <ul>
                     <li>Central de atendimento</li>
-                    <li>Trocas e devolucoes</li>
+                    <li>Trocas e devoluções</li>
                     <li>Formas de pagamento</li>
-                    <li>Rastrear pedido</li>
                 </ul>
             </div>
             <div>
-                <h4>Minha conta</h4>
+                <h4>Contato</h4>
                 <ul>
-                    <li>Meus pedidos</li>
-                    <li>Meus dados</li>
-                    <li>Favoritos</li>
-                    <li>Cartao da loja</li>
-                </ul>
-            </div>
-            <div>
-                <h4>Redes sociais</h4>
-                <ul>
-                    <li>Instagram</li>
-                    <li>Facebook</li>
-                    <li>Twitter / X</li>
-                    <li>Pinterest</li>
+                    <li>Email: contato@magalu.com</li>
+                    <li>Telefone: (11) 99999-9999</li>
                 </ul>
             </div>
         </div>
         <div class="rodape-baixo">
-            Magazine Luiza S/A - CNPJ: 47.960.950/1088-36 - Todos os direitos reservados.
+            Magalu - Todos os direitos reservados.
         </div>
     </footer>
 
@@ -235,36 +152,42 @@
             return url.searchParams.get(name);
         }
 
+        let produtoAtual = null;
+
         async function carregarProduto() {
             const id = getParam('id');
             if (!id) {
-                document.getElementById('produtoNome').textContent = 'Produto nao encontrado';
+                document.getElementById('produtoNome').textContent = 'Produto não encontrado';
                 return;
             }
 
             try {
-                const response = await fetch('/api/produtos');
-                const produtos = await response.json();
-                const produto = produtos.find(p => p.id === id);
-
-                if (!produto) {
-                    document.getElementById('produtoNome').textContent = 'Produto nao encontrado';
+                const response = await fetch('/api/produtos/' + id);
+                const data = await response.json();
+                if (!data.success || !data.produto) {
+                    document.getElementById('produtoNome').textContent = 'Produto não encontrado';
                     return;
                 }
 
-                document.getElementById('produtoNome').textContent = produto.nome;
-                document.getElementById('produtoPrecoDe').textContent = 'R$ ' + produto.preco_de.toFixed(2).replace('.', ',');
-                document.getElementById('produtoPrecoPor').innerHTML = 'R$ ' + produto.preco_por.toFixed(2).replace('.', ',') + ' <small>a vista</small>';
-                document.getElementById('produtoParcelas').textContent = produto.parcelas + ' sem juros';
-                document.getElementById('produtoDescricao').textContent = produto.descricao;
+                produtoAtual = data.produto;
+
+                document.getElementById('produtoNome').textContent = produtoAtual.nome;
+                document.getElementById('produtoPrecoPor').innerHTML = 'R$ ' + produtoAtual.preco.toFixed(2).replace('.', ',') + ' <small>à vista</small>';
+
+                if (produtoAtual.preco_promocional) {
+                    document.getElementById('produtoPrecoDe').textContent = 'De: R$ ' + produtoAtual.preco.toFixed(2).replace('.', ',');
+                    document.getElementById('produtoPrecoPor').innerHTML = 'Por: R$ ' + produtoAtual.preco_promocional.toFixed(2).replace('.', ',') + ' <small>à vista</small>';
+                }
+
+                document.getElementById('produtoParcelas').textContent = 'Consulte condições de pagamento';
+                document.getElementById('produtoDescricao').textContent = produtoAtual.descricao || 'Produto de qualidade.';
 
                 let estrelas = '';
-                for (let i = 0; i < produto.estrelas; i++) {
+                for (let i = 0; i < 5; i++) {
                     estrelas += '<i class="fas fa-star"></i>';
                 }
-                document.getElementById('produtoAvaliacao').innerHTML = estrelas + ' <span>(' + produto.avaliacoes + ')</span>';
+                document.getElementById('produtoAvaliacao').innerHTML = estrelas + ' <span>(0 avaliações)</span>';
 
-                window.produtoAtual = produto;
             } catch (error) {
                 console.error('Erro ao carregar produto:', error);
                 document.getElementById('produtoNome').textContent = 'Erro ao carregar produto';
@@ -272,20 +195,25 @@
         }
 
         function comprarProduto() {
-            if (window.produtoAtual) {
-                alert('Compra finalizada!\nProduto: ' + window.produtoAtual.nome + '\nValor: R$ ' + window.produtoAtual.preco_por.toFixed(2).replace('.', ','));
-                window.location.href = '/checkout.html';
+            if (produtoAtual) {
+                alert('Compra finalizada!\nProduto: ' + produtoAtual.nome + '\nValor: R$ ' + produtoAtual.preco.toFixed(2).replace('.', ','));
+                window.location.href = '/checkout.html?produto=' + produtoAtual.id;
             }
         }
 
         async function adicionarCarrinho() {
-            if (!window.produtoAtual) return;
+            if (!produtoAtual) return;
 
             try {
                 const response = await fetch('/api/carrinho', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(window.produtoAtual)
+                    body: JSON.stringify({
+                        id: produtoAtual.id,
+                        nome: produtoAtual.nome,
+                        preco: produtoAtual.preco,
+                        preco_promocional: produtoAtual.preco_promocional
+                    })
                 });
                 const data = await response.json();
                 if (data.success) {
@@ -297,7 +225,6 @@
             }
         }
 
-        // Busca
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 window.location.href = '/busca.html?q=' + encodeURIComponent(this.value);
