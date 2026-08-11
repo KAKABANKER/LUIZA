@@ -1,0 +1,13 @@
+{
+  "name": "loja-magalu",
+  "version": "1.0.0",
+  "description": "Loja virtual estilo Magalu",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["loja", "ecommerce", "magalu"],
+  "author": "",
+  "license": "MIT"
+}

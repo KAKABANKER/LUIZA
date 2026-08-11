@@ -1,0 +1,80 @@
+[
+  {
+    "id": "iphone-11",
+    "nome": "iPhone 11 Apple 128GB - Branco",
+    "preco_de": 3999.99,
+    "preco_por": 2499.00,
+    "parcelas": "12x de R$ 208,25",
+    "desconto": "-37%",
+    "selo": "OFERTA",
+    "estrelas": 5,
+    "avaliacoes": 146,
+    "descricao": "iPhone 11 com tela de 6,1 polegadas, camera dupla de 12MP, bateria de longa duracao e processador A13 Bionic. Disponivel na cor branca com 128GB de armazenamento.",
+    "categoria": "Celulares"
+  },
+  {
+    "id": "tv-samsung-50",
+    "nome": "Smart TV Samsung 50 4K UHD",
+    "preco_de": 3999.00,
+    "preco_por": 2899.00,
+    "parcelas": "12x de R$ 241,58",
+    "desconto": "-28%",
+    "selo": null,
+    "estrelas": 5,
+    "avaliacoes": 167,
+    "descricao": "Smart TV Samsung 50 polegadas com resolução 4K UHD, processador Crystal 4K, HDR e sistema operacional Tizen. Ideal para filmes e jogos.",
+    "categoria": "TV e Video"
+  },
+  {
+    "id": "notebook-dell",
+    "nome": "Notebook Dell Inspiron 15 - i7 16GB",
+    "preco_de": 6299.00,
+    "preco_por": 4799.00,
+    "parcelas": "12x de R$ 399,92",
+    "desconto": "-24%",
+    "selo": "OFERTA",
+    "estrelas": 5,
+    "avaliacoes": 73,
+    "descricao": "Notebook Dell Inspiron 15 com processador Intel Core i7 de 11ª geracao, 16GB de RAM, SSD de 256GB e tela Full HD de 15,6 polegadas.",
+    "categoria": "Informatica"
+  },
+  {
+    "id": "playstation-5",
+    "nome": "PlayStation 5 - Edicao Digital",
+    "preco_de": 4499.00,
+    "preco_por": 3499.00,
+    "parcelas": "10x de R$ 349,90",
+    "desconto": "-22%",
+    "selo": null,
+    "estrelas": 5,
+    "avaliacoes": 89,
+    "descricao": "PlayStation 5 Edicao Digital com SSD ultrarrápido, suporte a ray tracing, controle DualSense com feedback háptico e gatilhos adaptaveis.",
+    "categoria": "Games"
+  },
+  {
+    "id": "fone-jbl",
+    "nome": "Fone JBL Tune 770NC Bluetooth",
+    "preco_de": 899.00,
+    "preco_por": 599.00,
+    "parcelas": "6x de R$ 99,83",
+    "desconto": "-33%",
+    "selo": "OFERTA",
+    "estrelas": 5,
+    "avaliacoes": 212,
+    "descricao": "Fone de ouvido JBL Tune 770NC com cancelamento de ruido ativo, conexão Bluetooth 5.0, bateria de ate 40 horas e som de alta qualidade.",
+    "categoria": "Audio"
+  },
+  {
+    "id": "galaxy-s23",
+    "nome": "Samsung Galaxy S23 256GB - Preto",
+    "preco_de": 4499.00,
+    "preco_por": 3199.00,
+    "parcelas": "10x de R$ 319,90",
+    "desconto": "-29%",
+    "selo": null,
+    "estrelas": 5,
+    "avaliacoes": 98,
+    "descricao": "Samsung Galaxy S23 com tela Dynamic AMOLED 2X de 6,1 polegadas, camera de 50MP, processador Snapdragon 8 Gen 2 e bateria de 3900mAh.",
+    "categoria": "Celulares"
+  }
+]

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Magalu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .checkout-container {
+            max-width: 800px;
+            margin: 24px auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+
+        .checkout-container h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #f0f3f4;
+            padding-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #1e2428;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d3dadd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.15s;
+        }
+
+        .form-group input:focus {
+            border-color: #0086ff;
+            box-shadow: 0 0 0 3px rgba(0,134,255,0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn-finalizar {
+            background: #0086ff;
+            color: #fff;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .btn-finalizar:hover {
+            background: #0075e2;
+            transform: scale(1.01);
+        }
+
+        .resumo-pedido {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+
+        .resumo-pedido h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .resumo-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .resumo-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0 0;
+            border-top: 2px solid #d3dadd;
+            margin-top: 8px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .checkout-container {
+                padding: 20px;
+                margin: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <span>Frete gratis em compras selecionadas</span>
+        <span>Rastreie seu pedido · Central de ajuda</span>
+    </div>
+
+    <header class="header">
+        <a href="/" class="logo">
+            <i class="fas fa-store" style="font-size:28px; color:#fff;"></i>
+            <span style="color:#fff; font-weight:700; font-size:1.4rem;">magalu</span>
+        </a>
+        <form class="busca" onsubmit="return false;">
+            <input type="text" placeholder="Procure no Magalu" id="searchInput">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        <div class="header-icones">
+            <a href="/favoritos.html"><span class="icone"><i class="far fa-heart"></i></span>Favoritos</a>
+            <a href="/carrinho.html"><span class="icone"><i class="fas fa-shopping-cart"></i></span>Sacola</a>
+            <a href="/admin/"><span class="icone"><i class="fas fa-user-cog"></i></span>Admin</a>
+        </div>
+    </header>
+    <hr class="header-divider">
+
+    <div class="checkout-container">
+        <h1>Finalizar compra</h1>
+
+        <div class="resumo-pedido" id="resumoPedido">
+            <h3>Resumo do pedido</h3>
+            <div id="itensResumo"></div>
+        </div>
+
+        <form id="checkoutForm" onsubmit="finalizarPedido(event)">
+            <div class="form-group">
+                <label>Nome completo</label>
+                <input type="text" placeholder="Digite seu nome" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <input type="tel" placeholder="(11) 99999-9999" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Endereco</label>
+                <input type="text" placeholder="Rua, numero, complemento" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>CEP</label>
+                    <input type="text" placeholder="00000-000" required>
+                </div>
+                <div class="form-group">
+                    <label>Cidade</label>
+                    <input type="text" placeholder="Sua cidade" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Forma de pagamento</label>
+                <select style="width:100%; padding:10px 14px; border:1px solid #d3dadd; border-radius:8px; font-size:14px; outline:none;">
+                    <option>Cartao de credito</option>
+                    <option>PIX</option>
+                    <option>Boleto bancario</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-finalizar">Finalizar compra</button>
+        </form>
+    </div>
+
+    <footer>
+        <div class="rodape-colunas">
+            <div>
+                <h4>Institucional</h4>
+                <ul>
+                    <li>Sobre a loja</li>
+                    <li>Trabalhe conosco</li>
+                    <li>Sustentabilidade</li>
+                    <li>Imprensa</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Ajuda</h4>
+                <ul>
+                    <li>Central de atendimento</li>
+                    <li>Trocas e devolucoes</li>
+                    <li>Formas de pagamento</li>
+                    <li>Rastrear pedido</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Minha conta</h4>
+                <ul>
+                    <li>Meus pedidos</li>
+                    <li>Meus dados</li>
+                    <li>Favoritos</li>
+                    <li>Cartao da loja</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Redes sociais</h4>
+                <ul>
+                    <li>Instagram</li>
+                    <li>Facebook</li>
+                    <li>Twitter / X</li>
+                    <li>Pinterest</li>
+                </ul>
+            </div>
+        </div>
+        <div class="rodape-baixo">
+            Magazine Luiza S/A - CNPJ: 47.960.950/1088-36 - Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        async function carregarResumo() {
+            try {
+                const response = await fetch('/api/carrinho');
+                const carrinho = await response.json();
+                const container = document.getElementById('itensResumo');
+
+                if (carrinho.length === 0) {
+                    container.innerHTML = '<p style="color:#697277;">Nenhum item no carrinho</p>';
+                    return;
+                }
+
+                let html = '';
+                let total = 0;
+
+                carrinho.forEach(item => {
+                    total += item.preco_por;
+                    html += `
+                        <div class="resumo-item">
+                            <span>${item.nome}</span>
+                            <span>R$ ${item.preco_por.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                    `;
+                });
+
+                html += `
+                    <div class="resumo-total">
+                        <span>Total</span>
+                        <span>R$ ${total.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                `;
+
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Erro ao carregar resumo:', error);
+            }
+        }
+
+        function finalizarPedido(event) {
+            event.preventDefault();
+            alert('Pedido finalizado com sucesso!\nObrigado por comprar no Magalu!');
+            window.location.href = '/';
+        }
+
+        // Busca
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                window.location.href = '/busca.html?q=' + encodeURIComponent(this.value);
+            }
+        });
+
+        carregarResumo();
+    </script>
+
+</body>
+</html>
