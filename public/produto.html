@@ -4,226 +4,820 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produto - Magalu</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        .produto-detalhe {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            background: #fff;
-            border-radius: 16px;
-            padding: 40px;
-            margin: 24px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-        }
-        .produto-imagem {
-            background: #f8fafc;
-            border-radius: 12px;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #edf2f7;
-            font-size: 80px;
-            color: #d3dadd;
-        }
-        .produto-info h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-        .produto-info .avaliacao { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
-        .produto-info .avaliacao i { color: #fbbf24; }
-        .produto-info .preco { margin: 16px 0; }
-        .produto-info .preco .de { font-size: 16px; color: #697277; text-decoration: line-through; }
-        .produto-info .preco .por { font-size: 36px; font-weight: 700; color: #1e2428; }
-        .produto-info .preco .por small { font-size: 16px; font-weight: 400; color: #697277; }
-        .produto-info .parcelas { color: #1cb35c; font-weight: 600; font-size: 14px; margin-bottom: 16px; }
-        .produto-info .descricao { color: #4b5563; line-height: 1.6; margin: 16px 0; }
-        .produto-info .btn-comprar {
-            background: #0086ff;
-            color: #fff;
-            border: none;
-            padding: 14px 40px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 16px;
-        }
-        .produto-info .btn-comprar:hover { background: #0075e2; transform: scale(1.02); }
-        .produto-info .btn-carrinho {
-            background: transparent;
-            color: #0086ff;
-            border: 2px solid #0086ff;
-            padding: 14px 40px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-left: 12px;
-        }
-        .produto-info .btn-carrinho:hover { background: #0086ff; color: #fff; }
-        @media (max-width: 700px) {
-            .produto-detalhe { grid-template-columns: 1fr; padding: 20px; margin: 12px; }
-            .produto-imagem { height: 250px; }
-            .produto-info h1 { font-size: 22px; }
-            .produto-info .preco .por { font-size: 28px; }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .swiper-slide { display: flex; justify-content: center; align-items: center; }
+        .carousel-container { position: relative; overflow: hidden; }
+        .carousel-track { display: flex; transition: transform 0.5s ease; }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255,255,255,0.9); border: 1px solid #e5e7eb; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.2s; }
+        .carousel-btn:hover { background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .carousel-btn.prev { left: 8px; }
+        .carousel-btn.next { right: 8px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; transition: all 0.3s; cursor: pointer; }
+        .dot.active { background: #0086ff; width: 24px; border-radius: 4px; }
+        .thumbnail { border: 2px solid transparent; border-radius: 8px; cursor: pointer; transition: all 0.2s; opacity: 0.6; width: 60px; height: 60px; object-fit: cover; flex-shrink: 0; }
+        .thumbnail.active { border-color: #0086ff; opacity: 1; }
+        .thumbnail:hover { opacity: 1; }
+        .heart-btn { transition: all 0.2s; }
+        .heart-btn:hover { transform: scale(1.1); }
+        .heart-btn.liked { color: #ef4444; }
+        .price-big { font-size: 2rem; font-weight: 700; }
+        @media (min-width: 768px) { .price-big { font-size: 2.5rem; } }
+        .product-specs { border-collapse: collapse; width: 100%; }
+        .product-specs td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6; }
+        .product-specs .label { color: #6b7280; font-weight: 500; width: 40%; }
+        .product-specs .value { color: #111827; font-weight: 500; }
+        .tabs-container { display: flex; gap: 0; border-bottom: 2px solid #e5e7eb; overflow-x: auto; }
+        .tab-btn { padding: 12px 20px; font-weight: 600; font-size: 14px; color: #6b7280; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
+        .tab-btn:hover { color: #111827; }
+        .tab-btn.active { color: #0086ff; border-bottom-color: #0086ff; }
+        .tab-content { display: none; padding-top: 20px; }
+        .tab-content.active { display: block; }
+        .rating-stars { display: flex; gap: 2px; }
+        .rating-stars .star { color: #fbbf24; }
+        .rating-stars .star-empty { color: #e5e7eb; }
+        .variation-btn { padding: 8px 16px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; background: white; }
+        .variation-btn:hover { border-color: #0086ff; }
+        .variation-btn.active { border-color: #0086ff; background: #eff6ff; color: #0086ff; }
+        .color-btn { width: 48px; height: 48px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .color-btn.active { border-color: #0086ff; box-shadow: 0 0 0 3px rgba(0,134,255,0.2); }
+        .color-btn .inner { width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); }
+        .review-item { border-bottom: 1px solid #f3f4f6; padding: 16px 0; }
+        .review-item:last-child { border-bottom: none; }
+        .review-avatar { width: 40px; height: 40px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #6b7280; flex-shrink: 0; }
+        .progress-bar { height: 6px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
+        .progress-bar .fill { height: 100%; border-radius: 4px; background: #0086ff; }
+        .sell-price { font-size: 1.8rem; font-weight: 800; color: #111827; }
+        .sell-price small { font-size: 1.2rem; font-weight: 400; color: #6b7280; }
+        .old-price { color: #9ca3af; text-decoration: line-through; font-size: 0.9rem; }
+        .discount-badge { background: #dcfce7; color: #16a34a; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.75rem; }
+        .full-badge { background: #0086ff; color: white; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.5px; }
+        .installments { font-size: 0.85rem; color: #6b7280; }
+        .installments strong { color: #111827; }
+        .add-to-cart-btn { background: #00a82d; transition: all 0.2s; }
+        .add-to-cart-btn:hover { background: #009327; transform: scale(1.01); }
+        .buy-now-btn { background: white; border: 2px solid #00a82d; color: #00a82d; transition: all 0.2s; }
+        .buy-now-btn:hover { background: #f0fdf4; }
+        .mobile-sticky { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 12px 16px; z-index: 50; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); }
+        @media (min-width: 768px) { .mobile-sticky { display: none; } }
+        .toast-custom { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 999; padding: 12px 24px; border-radius: 12px; color: white; font-weight: 600; font-size: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); max-width: 90%; text-align: center; transition: all 0.3s; }
+        .toast-success { background: #00a82d; }
+        .toast-error { background: #ef4444; }
+        .avaliar-form { background: #f8fafc; border-radius: 12px; padding: 16px; margin-top: 16px; }
+        .avaliar-form textarea { width: 100%; padding: 10px; border: 1.5px solid #e5e7eb; border-radius: 8px; resize: vertical; min-height: 80px; font-size: 14px; }
+        .avaliar-form textarea:focus { outline: none; border-color: #0086ff; }
+        .avaliar-form .stars-select { display: flex; gap: 4px; font-size: 28px; cursor: pointer; }
+        .avaliar-form .stars-select span { transition: all 0.2s; }
+        .avaliar-form .stars-select span:hover { transform: scale(1.2); }
+        .avaliar-form .stars-select span.active { color: #fbbf24; }
+        .avaliar-form .stars-select span.inactive { color: #e5e7eb; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-[#111827] antialiased pb-24 md:pb-0">
 
-    <div class="topbar">
-        <span>Bem-vindo ao Magalu</span>
-        <span>Central de ajuda · Rastreie seu pedido</span>
+    <div class="max-w-4xl mx-auto bg-white min-h-screen shadow-sm" id="produtoContainer">
+
+        <!-- ========== HEADER ========== -->
+        <header class="w-full bg-[#0086ff] text-white sticky top-0 z-40">
+            <div class="px-4 py-3 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <a href="/" class="p-1 hover:bg-white/10 rounded-md transition-colors">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </a>
+                    <img id="logoLoja" src="" alt="https://imgs.search.brave.com/jpVplwHbcm_HAEgj-GPc0S22OYitf8QgDOcLSowFrPY/rs:fit:0:180:1:0/g:ce/aHR0cHM6Ly9sb2dv/ZG93bmxvYWQub3Jn/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE0/LzA2L21hZ2FsdS1s/b2dvLTEucG5n" class="h-8 w-auto" style="display:none;">
+                    <span id="logoTexto" class="text-xl font-black tracking-tight"></span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="/carrinho.html" class="p-1 hover:bg-white/10 rounded-md transition-colors relative">
+                        <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                        <span class="absolute -top-1 -right-1 bg-[#4cd964] text-xs font-bold text-black rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1" id="carrinhoBadge">0</span>
+                    </a>
+                    <a href="/admin/" class="p-1 hover:bg-white/10 rounded-md transition-colors">
+                        <i data-lucide="settings" class="w-6 h-6"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="px-4 pb-3">
+                <div class="relative w-full">
+                    <input type="text" id="searchInput" placeholder="Buscar no Magalu" class="w-full py-2.5 pl-4 pr-10 rounded-lg text-gray-800 bg-white placeholder-gray-500 focus:outline-none shadow-inner text-sm">
+                    <i data-lucide="search" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#0086ff]"></i>
+                </div>
+            </div>
+            <div class="bg-[#0077e6] py-2 px-4">
+                <div class="flex items-center justify-between text-sm font-medium">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="map-pin" class="w-4 h-4"></i>
+                        <span>Região de <strong>Brasília/DF</strong></span>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== CARROSSEL DE IMAGENS ========== -->
+        <section class="bg-white relative border-b border-gray-100">
+            <!-- Botões de ação -->
+            <div class="absolute top-4 right-4 z-20 flex flex-col gap-2">
+                <button id="favoritarBtn" class="heart-btn p-2.5 bg-white/90 backdrop-blur-sm text-gray-600 rounded-full hover:bg-white shadow-md transition-all">
+                    <i data-lucide="heart" class="w-5 h-5"></i>
+                </button>
+                <button class="p-2.5 bg-white/90 backdrop-blur-sm text-gray-600 rounded-full hover:bg-white shadow-md transition-all">
+                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Carrossel principal -->
+            <div class="relative carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="swiper-slide flex-shrink-0 w-full aspect-square flex items-center justify-center bg-gray-50">
+                        <div class="text-gray-400 text-center">
+                            <i data-lucide="image" class="w-16 h-16 mx-auto mb-2"></i>
+                            <p class="text-sm">Carregando imagens...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-btn prev" id="prevBtn">
+                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button class="carousel-btn next" id="nextBtn">
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Indicadores -->
+            <div class="flex justify-center gap-2 py-3" id="dotsContainer"></div>
+
+            <!-- Miniaturas -->
+            <div class="flex gap-2 overflow-x-auto px-4 pb-4" id="thumbnailsContainer"></div>
+
+            <!-- Tags -->
+            <div class="px-4 py-2 flex items-center justify-between border-t border-gray-100">
+                <span id="produtoSelo" class="full-badge">⚡ Full</span>
+                <div class="flex items-center gap-1 text-sm text-gray-500">
+                    <div class="flex" id="produtoEstrelas"></div>
+                    <span id="produtoAvaliacaoCount">(0 avaliações)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== INFORMAÇÕES DO PRODUTO ========== -->
+        <section class="bg-white px-4 py-4 space-y-4">
+            <h1 id="produtoTitulo" class="text-[#111827] text-lg md:text-xl font-semibold leading-snug">Carregando...</h1>
+            <p class="text-xs text-gray-400" id="produtoSKU">SKU: ---</p>
+
+            <div class="space-y-2">
+                <p class="text-sm text-gray-500">Categoria</p>
+                <span id="produtoCategoria" class="text-sm font-medium bg-gray-100 px-3 py-1 rounded-full inline-block">---</span>
+            </div>
+
+            <div class="space-y-2" id="coresContainer">
+                <p class="text-sm text-gray-500">Cor: <span id="corSelecionada" class="font-medium text-gray-800">---</span></p>
+                <div class="flex flex-wrap gap-3" id="coresList"></div>
+            </div>
+
+            <div class="space-y-2" id="armazenamentoContainer">
+                <p class="text-sm text-gray-500">Armazenamento: <span id="armazenamentoSelecionado" class="font-medium text-gray-800">---</span></p>
+                <div class="flex flex-wrap gap-2" id="armazenamentoList"></div>
+            </div>
+
+            <div id="produtoDescricao" class="text-sm text-gray-600 leading-relaxed">Carregando...</div>
+        </section>
+
+        <!-- ========== PREÇO E COMPRA ========== -->
+        <section class="bg-white border-t border-gray-100">
+            <div class="p-4 space-y-2">
+                <div class="flex items-baseline gap-3 flex-wrap">
+                    <span class="sell-price" id="produtoPrecoAtual">R$ 0</span>
+                    <span class="old-price" id="produtoPrecoAntigo"></span>
+                    <span id="produtoDescontoBadge" class="discount-badge hidden">-0%</span>
+                </div>
+                <div class="installments" id="produtoParcelas">ou em até <strong>12x de R$ 0,00</strong> sem juros</div>
+                <button class="text-sm font-semibold text-[#0086ff] hover:underline flex items-center gap-1">Ver opções de pagamento <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+            </div>
+
+            <div class="p-4 bg-gray-50/50 space-y-3">
+                <div class="flex items-center gap-2 text-sm">
+                    <i data-lucide="map-pin" class="w-5 h-5 text-[#0086ff]"></i>
+                    <span>Região de <strong>Brasilia/DF</strong></span>
+                    <button class="text-sm font-semibold text-[#0086ff] ml-auto hover:underline">Alterar</button>
+                </div>
+                <div class="flex items-start gap-3 pt-1">
+                    <i data-lucide="truck" class="w-5 h-5 text-gray-400 mt-0.5 shrink-0"></i>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm text-gray-800 font-medium">Frete grátis</p>
+                            <span class="text-sm font-bold text-[#00a82d]">Grátis</span>
+                        </div>
+                        <p class="text-xs text-gray-500">Entrega em até 5 dias úteis</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 space-y-3">
+                <button id="btnAdicionarCarrinho" class="add-to-cart-btn w-full text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors text-base">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i> Adicionar à sacola
+                </button>
+                <button id="btnComprarAgora" class="buy-now-btn w-full font-bold py-3.5 px-4 rounded-xl transition-colors text-base">Comprar agora</button>
+            </div>
+        </section>
+
+        <!-- ========== TABS ========== -->
+        <section class="bg-white border-t border-gray-100 mt-2">
+            <div class="tabs-container px-4">
+                <button class="tab-btn active" data-tab="descricao">Descrição</button>
+                <button class="tab-btn" data-tab="especificacoes">Especificações</button>
+                <button class="tab-btn" data-tab="avaliacoes">Avaliações</button>
+            </div>
+
+            <div class="tab-content active px-4 pb-6" id="tabDescricao">
+                <div id="produtoDescricaoCompleta" class="text-sm text-gray-600 leading-relaxed whitespace-pre-line">Carregando...</div>
+            </div>
+
+            <div class="tab-content px-4 pb-6" id="tabEspecificacoes">
+                <table class="product-specs" id="tabelaEspecificacoes">
+                    <tbody><tr><td class="label">Carregando...</td><td class="value">---</td></tr></tbody>
+                </table>
+            </div>
+
+            <div class="tab-content px-4 pb-6" id="tabAvaliacoes">
+                <div class="flex items-center gap-6 mb-6 flex-wrap">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gray-800" id="notaMedia">0.0</div>
+                        <div class="flex justify-center mt-1" id="avaliacaoEstrelasMedia"></div>
+                        <div class="text-sm text-gray-500" id="totalAvaliacoes">0 avaliações</div>
+                    </div>
+                    <div class="flex-1 min-w-[150px] space-y-1" id="barrasAvaliacoes"></div>
+                </div>
+
+                <div id="listaAvaliacoes">
+                    <div class="text-center text-gray-400 py-8">
+                        <i data-lucide="message-square" class="w-12 h-12 mx-auto mb-2"></i>
+                        <p>Carregando avaliações...</p>
+                    </div>
+                </div>
+
+                <!-- Formulário de avaliação -->
+                <div class="avaliar-form mt-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">Avalie este produto</h4>
+                    <div class="stars-select mb-2" id="starsSelect">
+                        <span data-nota="1" onclick="selecionarNota(1)">☆</span>
+                        <span data-nota="2" onclick="selecionarNota(2)">☆</span>
+                        <span data-nota="3" onclick="selecionarNota(3)">☆</span>
+                        <span data-nota="4" onclick="selecionarNota(4)">☆</span>
+                        <span data-nota="5" onclick="selecionarNota(5)">☆</span>
+                    </div>
+                    <input type="text" id="avaliadorNome" placeholder="Seu nome (opcional)" class="w-full p-2 border border-gray-200 rounded-lg mb-2 text-sm">
+                    <textarea id="avaliadorComentario" placeholder="Escreva seu comentário..." class="w-full p-2 border border-gray-200 rounded-lg text-sm"></textarea>
+                    <button onclick="enviarAvaliacao()" class="mt-2 bg-[#0086ff] text-white px-6 py-2 rounded-lg font-semibold text-sm hover:bg-[#0077e6] transition-colors">
+                        <i data-lucide="send" class="w-4 h-4 inline"></i> Enviar avaliação
+                    </button>
+                    <div id="avaliacaoMsg" class="text-sm mt-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== FOOTER ========== -->
+        <footer class="bg-gray-50 text-gray-400 pt-8 pb-12 px-4 border-t border-gray-200">
+            <div class="text-center space-y-4">
+                <p class="text-xs">© 2024 Magalu - Todos os direitos reservados.</p>
+                <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="p-3 bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300 transition-colors shadow-sm">
+                    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </footer>
     </div>
 
-    <header class="header">
-        <a href="/" class="logo">
-            <i class="fas fa-store" style="font-size:28px; color:#fff;"></i>
-            <span style="color:#fff; font-weight:700; font-size:1.4rem;">magalu</span>
-        </a>
-        <form class="busca" onsubmit="return false;">
-            <input type="text" placeholder="Procure no Magalu" id="searchInput">
-            <button type="submit"><i class="fas fa-search"></i></button>
-        </form>
-        <div class="header-icones">
-            <a href="/carrinho.html"><span class="icone"><i class="fas fa-shopping-cart"></i></span>Sacola</a>
-            <a href="/admin/"><span class="icone"><i class="fas fa-user-cog"></i></span>Admin</a>
-        </div>
-    </header>
-    <hr class="header-divider">
-
-    <div class="produto-detalhe" id="produtoDetalhe">
-        <div class="produto-imagem" id="produtoImagem">
-            <i class="fas fa-box"></i>
-        </div>
-        <div class="produto-info">
-            <h1 id="produtoNome">Carregando...</h1>
-            <div class="avaliacao" id="produtoAvaliacao"></div>
-            <div class="preco">
-                <div class="de" id="produtoPrecoDe"></div>
-                <div class="por" id="produtoPrecoPor"></div>
-            </div>
-            <div class="parcelas" id="produtoParcelas"></div>
-            <div class="descricao" id="produtoDescricao"></div>
+    <!-- ========== MOBILE STICKY ========== -->
+    <div class="mobile-sticky" id="mobileSticky">
+        <div class="flex items-center justify-between gap-3">
             <div>
-                <button class="btn-comprar" onclick="comprarProduto()">Comprar agora</button>
-                <button class="btn-carrinho" onclick="adicionarCarrinho()">Adicionar ao carrinho</button>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-lg font-bold text-gray-800" id="mobilePreco">R$0</span>
+                    <span class="text-xs text-gray-500" id="mobileParcelas">ou 12x de R$0</span>
+                </div>
             </div>
+            <button id="mobileBtnCarrinho" class="add-to-cart-btn text-white text-sm font-bold py-2.5 px-5 rounded-lg flex items-center gap-2 shadow transition-colors">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Adicionar
+            </button>
         </div>
     </div>
-
-    <footer>
-        <div class="rodape-colunas">
-            <div>
-                <h4>Institucional</h4>
-                <ul>
-                    <li>Sobre a loja</li>
-                    <li>Trabalhe conosco</li>
-                    <li>Sustentabilidade</li>
-                </ul>
-            </div>
-            <div>
-                <h4>Ajuda</h4>
-                <ul>
-                    <li>Central de atendimento</li>
-                    <li>Trocas e devoluções</li>
-                    <li>Formas de pagamento</li>
-                </ul>
-            </div>
-            <div>
-                <h4>Contato</h4>
-                <ul>
-                    <li>Email: contato@magalu.com</li>
-                    <li>Telefone: (11) 99999-9999</li>
-                </ul>
-            </div>
-        </div>
-        <div class="rodape-baixo">
-            Magalu - Todos os direitos reservados.
-        </div>
-    </footer>
 
     <script>
+        // ============================================================
+        // VARIÁVEIS GLOBAIS
+        // ============================================================
+        let produtoAtual = null;
+        let imagensCarregadas = [];
+        let currentSlide = 0;
+        let notaSelecionada = 0;
+        let produtoId = null;
+
+        // ============================================================
+        // FUNÇÕES DE CARREGAMENTO
+        // ============================================================
+
         function getParam(name) {
             const url = new URL(window.location.href);
             return url.searchParams.get(name);
         }
 
-        let produtoAtual = null;
-
         async function carregarProduto() {
             const id = getParam('id');
             if (!id) {
-                document.getElementById('produtoNome').textContent = 'Produto não encontrado';
+                document.getElementById('produtoTitulo').textContent = 'Produto não encontrado';
                 return;
             }
+            produtoId = id;
 
             try {
                 const response = await fetch('/api/produtos/' + id);
                 const data = await response.json();
+
                 if (!data.success || !data.produto) {
-                    document.getElementById('produtoNome').textContent = 'Produto não encontrado';
+                    document.getElementById('produtoTitulo').textContent = 'Produto não encontrado';
                     return;
                 }
 
                 produtoAtual = data.produto;
-
-                document.getElementById('produtoNome').textContent = produtoAtual.nome;
-                document.getElementById('produtoPrecoPor').innerHTML = 'R$ ' + produtoAtual.preco.toFixed(2).replace('.', ',') + ' <small>à vista</small>';
-
-                if (produtoAtual.preco_promocional) {
-                    document.getElementById('produtoPrecoDe').textContent = 'De: R$ ' + produtoAtual.preco.toFixed(2).replace('.', ',');
-                    document.getElementById('produtoPrecoPor').innerHTML = 'Por: R$ ' + produtoAtual.preco_promocional.toFixed(2).replace('.', ',') + ' <small>à vista</small>';
-                }
-
-                document.getElementById('produtoParcelas').textContent = 'Consulte condições de pagamento';
-                document.getElementById('produtoDescricao').textContent = produtoAtual.descricao || 'Produto de qualidade.';
-
-                let estrelas = '';
-                for (let i = 0; i < 5; i++) {
-                    estrelas += '<i class="fas fa-star"></i>';
-                }
-                document.getElementById('produtoAvaliacao').innerHTML = estrelas + ' <span>(0 avaliações)</span>';
+                renderizarProduto(produtoAtual);
+                carregarAvaliacoes(id);
+                carregarLogo();
 
             } catch (error) {
-                console.error('Erro ao carregar produto:', error);
-                document.getElementById('produtoNome').textContent = 'Erro ao carregar produto';
+                console.error('Erro:', error);
+                document.getElementById('produtoTitulo').textContent = 'Erro ao carregar produto';
             }
         }
 
-        function comprarProduto() {
-            if (produtoAtual) {
-                alert('Compra finalizada!\nProduto: ' + produtoAtual.nome + '\nValor: R$ ' + produtoAtual.preco.toFixed(2).replace('.', ','));
-                window.location.href = '/checkout.html?produto=' + produtoAtual.id;
+        // ============================================================
+        // RENDERIZAR PRODUTO
+        // ============================================================
+
+        function renderizarProduto(p) {
+            document.getElementById('produtoTitulo').textContent = p.nome || 'Produto';
+            document.getElementById('produtoSKU').textContent = 'SKU: ' + (p.sku || 'MGL-' + String(p.id).padStart(6, '0'));
+            document.getElementById('produtoCategoria').textContent = p.tipo || 'Sem categoria';
+
+            const descricao = p.descricao || 'Produto de alta qualidade.';
+            document.getElementById('produtoDescricao').textContent = descricao.substring(0, 120) + (descricao.length > 120 ? '...' : '');
+            document.getElementById('produtoDescricaoCompleta').textContent = descricao;
+
+            // Selo
+            const selo = document.getElementById('produtoSelo');
+            if (p.preco_promocional) {
+                selo.textContent = '⚡ Oferta';
+                selo.style.background = '#0086ff';
+            } else {
+                selo.textContent = '⭐ Destaque';
+                selo.style.background = '#f59e0b';
+            }
+
+            // Preços
+            const preco = p.preco_promocional || p.preco;
+            const precoOriginal = p.preco;
+
+            document.getElementById('produtoPrecoAtual').textContent = 'R$ ' + preco.toFixed(2).replace('.', ',');
+            document.getElementById('mobilePreco').textContent = 'R$ ' + preco.toFixed(2).replace('.', ',');
+
+            if (p.preco_promocional) {
+                document.getElementById('produtoPrecoAntigo').textContent = 'R$ ' + precoOriginal.toFixed(2).replace('.', ',');
+                document.getElementById('produtoPrecoAntigo').style.display = 'inline';
+                const desconto = Math.round((1 - p.preco_promocional / p.preco) * 100);
+                const badge = document.getElementById('produtoDescontoBadge');
+                badge.textContent = '-' + desconto + '%';
+                badge.classList.remove('hidden');
+            } else {
+                document.getElementById('produtoPrecoAntigo').style.display = 'none';
+                document.getElementById('produtoDescontoBadge').classList.add('hidden');
+            }
+
+            // Parcelas
+            const parcelas = 12;
+            const valorParcela = preco / parcelas;
+            document.getElementById('produtoParcelas').innerHTML = 'ou em até <strong>' + parcelas + 'x de R$ ' + valorParcela.toFixed(2).replace('.', ',') + '</strong> sem juros';
+            document.getElementById('mobileParcelas').textContent = 'ou ' + parcelas + 'x de R$ ' + valorParcela.toFixed(2).replace('.', ',');
+
+            // Cores
+            renderizarCores(p);
+
+            // Armazenamento
+            renderizarArmazenamento(p);
+
+            // Especificações
+            renderizarEspecificacoes(p);
+
+            // Imagens
+            let imagens = [];
+            try {
+                imagens = JSON.parse(p.imagens || '[]');
+            } catch (e) {
+                imagens = p.imagem ? [p.imagem] : [];
+            }
+            if (!imagens || imagens.length === 0) {
+                imagens = ['https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop'];
+            }
+            imagensCarregadas = imagens;
+            renderizarCarrossel(imagensCarregadas);
+
+            atualizarBadgeCarrinho();
+        }
+
+        // ============================================================
+        // CORES
+        // ============================================================
+
+        function renderizarCores(p) {
+            const container = document.getElementById('coresList');
+            let cores = [];
+            try { cores = JSON.parse(p.cores || '[]'); } catch (e) { cores = []; }
+            if (!cores || cores.length === 0) {
+                cores = [
+                    { nome: 'Titânio Grafite', hex: '#4b5563' },
+                    { nome: 'Prata', hex: '#e5e7eb' }
+                ];
+            }
+
+            container.innerHTML = '';
+            cores.forEach((cor, index) => {
+                const btn = document.createElement('button');
+                const nome = typeof cor === 'string' ? cor : cor.nome;
+                const hex = typeof cor === 'string' ? '#cccccc' : (cor.hex || '#cccccc');
+                btn.className = 'color-btn' + (index === 0 ? ' active' : '');
+                btn.innerHTML = `<div class="inner" style="background:${hex}"></div>`;
+                btn.title = nome;
+                btn.onclick = function() {
+                    document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('corSelecionada').textContent = nome;
+                };
+                container.appendChild(btn);
+            });
+
+            if (cores.length > 0) {
+                const primeiro = typeof cores[0] === 'string' ? cores[0] : cores[0].nome;
+                document.getElementById('corSelecionada').textContent = primeiro;
             }
         }
 
-        async function adicionarCarrinho() {
-            if (!produtoAtual) return;
+        // ============================================================
+        // ARMAZENAMENTO
+        // ============================================================
+
+        function renderizarArmazenamento(p) {
+            const container = document.getElementById('armazenamentoList');
+            let opcoes = [];
+            try { opcoes = JSON.parse(p.armazenamentos || '[]'); } catch (e) { opcoes = []; }
+            if (!opcoes || opcoes.length === 0) {
+                opcoes = ['128GB', '256GB', '512GB'];
+            }
+
+            container.innerHTML = '';
+            opcoes.forEach((opcao, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'variation-btn' + (index === 0 ? ' active' : '');
+                btn.textContent = opcao;
+                btn.onclick = function() {
+                    document.querySelectorAll('#armazenamentoList .variation-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('armazenamentoSelecionado').textContent = opcao;
+                };
+                container.appendChild(btn);
+            });
+
+            if (opcoes.length > 0) {
+                document.getElementById('armazenamentoSelecionado').textContent = opcoes[0];
+            }
+        }
+
+        // ============================================================
+        // ESPECIFICAÇÕES
+        // ============================================================
+
+        function renderizarEspecificacoes(p) {
+            const tbody = document.querySelector('#tabelaEspecificacoes tbody');
+            const specs = [
+                { label: 'Marca', value: p.fabricante || 'Magalu' },
+                { label: 'Modelo', value: p.nome || '-' },
+                { label: 'Categoria', value: p.tipo || '-' },
+                { label: 'Dimensões', value: p.dimensoes || 'Não informado' },
+                { label: 'Capacidade', value: p.capacidade || 'Não informado' },
+                { label: 'Peso', value: p.peso || 'Não informado' },
+                { label: 'Material', value: p.material || 'Não informado' },
+                { label: 'Cor', value: p.cor || 'Não informado' },
+                { label: 'Estoque', value: p.estoque !== undefined ? p.estoque + ' unidades' : 'Consulte' },
+            ];
+
+            tbody.innerHTML = specs.map(s => `
+                <tr>
+                    <td class="label">${s.label}</td>
+                    <td class="value">${s.value}</td>
+                </tr>
+            `).join('');
+        }
+
+        // ============================================================
+        // CARROSSEL
+        // ============================================================
+
+        function renderizarCarrossel(imagens) {
+            const track = document.getElementById('carouselTrack');
+            const dotsContainer = document.getElementById('dotsContainer');
+            const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+
+            track.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            thumbnailsContainer.innerHTML = '';
+
+            imagens.forEach((img, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide flex-shrink-0 w-full aspect-square flex items-center justify-center bg-gray-50';
+                slide.innerHTML = `<img src="${img}" alt="Produto ${index+1}" class="object-contain max-h-80 w-auto p-4" onerror="this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop'">`;
+                track.appendChild(slide);
+
+                const dot = document.createElement('div');
+                dot.className = 'dot' + (index === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(index);
+                dotsContainer.appendChild(dot);
+
+                const thumb = document.createElement('img');
+                thumb.src = img;
+                thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
+                thumb.onerror = "this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop'";
+                thumb.onclick = () => goToSlide(index);
+                thumbnailsContainer.appendChild(thumb);
+            });
+
+            document.getElementById('prevBtn').onclick = () => goToSlide(currentSlide - 1);
+            document.getElementById('nextBtn').onclick = () => goToSlide(currentSlide + 1);
+
+            currentSlide = 0;
+            updateCarrossel(0);
+        }
+
+        function goToSlide(index) {
+            const total = imagensCarregadas.length;
+            if (total === 0) return;
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+            currentSlide = index;
+            updateCarrossel(index);
+        }
+
+        function updateCarrossel(index) {
+            const total = imagensCarregadas.length;
+            if (total === 0) return;
+            const track = document.getElementById('carouselTrack');
+            track.style.transform = `translateX(-${index * 100}%)`;
+
+            document.querySelectorAll('.dot').forEach((dot, i) => dot.classList.toggle('active', i === index));
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => thumb.classList.toggle('active', i === index));
+        }
+
+        // ============================================================
+        // AVALIAÇÕES
+        // ============================================================
+
+        async function carregarAvaliacoes(produtoId) {
+            try {
+                const statsRes = await fetch('/api/avaliacoes/stats/' + produtoId);
+                const statsData = await statsRes.json();
+
+                if (statsData.success) {
+                    const media = statsData.media || 0;
+                    const total = statsData.total || 0;
+                    document.getElementById('notaMedia').textContent = media.toFixed(1);
+                    document.getElementById('totalAvaliacoes').textContent = total + ' avaliações';
+                    document.getElementById('produtoAvaliacaoCount').textContent = '(' + total + ' avaliações)';
+                    renderizarEstrelasMedia(media);
+
+                    const distribuicao = statsData.distribuicao || [];
+                    const containerBarras = document.getElementById('barrasAvaliacoes');
+                    containerBarras.innerHTML = '';
+                    for (let i = 5; i >= 1; i--) {
+                        const item = distribuicao.find(d => d.nota === i);
+                        const percent = total > 0 ? Math.round((item ? parseInt(item.quantidade) : 0) / total * 100) : 0;
+                        const div = document.createElement('div');
+                        div.className = 'flex items-center gap-2 text-sm';
+                        div.innerHTML = `
+                            <span class="text-gray-500 w-6">${i}</span>
+                            <div class="flex-1 progress-bar"><div class="fill" style="width:${percent}%"></div></div>
+                            <span class="text-gray-400 text-xs w-8">${percent}%</span>
+                        `;
+                        containerBarras.appendChild(div);
+                    }
+                }
+
+                const avalRes = await fetch('/api/avaliacoes/' + produtoId);
+                const avalData = await avalRes.json();
+
+                const container = document.getElementById('listaAvaliacoes');
+                if (avalData.success && avalData.avaliacoes && avalData.avaliacoes.length > 0) {
+                    container.innerHTML = avalData.avaliacoes.map(a => `
+                        <div class="review-item">
+                            <div class="flex items-start gap-3">
+                                <div class="review-avatar">${a.usuario_nome ? a.usuario_nome.charAt(0).toUpperCase() : 'A'}</div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="font-medium text-gray-800">${a.usuario_nome || 'Anônimo'}</span>
+                                        <div class="flex text-sm">${'⭐'.repeat(a.nota)}${'☆'.repeat(5 - a.nota)}</div>
+                                        <span class="text-xs text-gray-400">${new Date(a.data_avaliacao).toLocaleDateString('pt-BR')}</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1">${a.comentario || 'Sem comentário.'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `
+                        <div class="text-center text-gray-400 py-8">
+                            <i data-lucide="message-square" class="w-12 h-12 mx-auto mb-2"></i>
+                            <p>Seja o primeiro a avaliar este produto</p>
+                        </div>
+                    `;
+                }
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Erro ao carregar avaliações:', error);
+            }
+        }
+
+        function renderizarEstrelasMedia(nota) {
+            const container = document.getElementById('avaliacaoEstrelasMedia');
+            container.innerHTML = '';
+            const total = 5;
+            const cheias = Math.floor(nota);
+            const meia = nota % 1 >= 0.5 ? 1 : 0;
+
+            for (let i = 0; i < cheias; i++) {
+                const star = document.createElement('i');
+                star.setAttribute('data-lucide', 'star');
+                star.className = 'w-4 h-4 text-yellow-400 fill-yellow-400';
+                container.appendChild(star);
+            }
+            if (meia) {
+                const star = document.createElement('i');
+                star.setAttribute('data-lucide', 'star-half');
+                star.className = 'w-4 h-4 text-yellow-400 fill-yellow-400';
+                container.appendChild(star);
+            }
+            for (let i = cheias + meia; i < total; i++) {
+                const star = document.createElement('i');
+                star.setAttribute('data-lucide', 'star');
+                star.className = 'w-4 h-4 text-gray-300';
+                container.appendChild(star);
+            }
+            lucide.createIcons();
+        }
+
+        function selecionarNota(nota) {
+            notaSelecionada = nota;
+            document.querySelectorAll('#starsSelect span').forEach(el => {
+                const n = parseInt(el.dataset.nota);
+                el.textContent = n <= nota ? '★' : '☆';
+                el.className = n <= nota ? 'active' : 'inactive';
+            });
+        }
+
+        async function enviarAvaliacao() {
+            if (!produtoId) { mostrarToast('Produto não carregado', 'error'); return; }
+            if (!notaSelecionada) { mostrarToast('Selecione uma nota', 'error'); return; }
+
+            const nome = document.getElementById('avaliadorNome').value.trim() || 'Anônimo';
+            const comentario = document.getElementById('avaliadorComentario').value.trim();
 
             try {
-                const response = await fetch('/api/carrinho', {
+                const response = await fetch('/api/avaliacoes', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        id: produtoAtual.id,
-                        nome: produtoAtual.nome,
-                        preco: produtoAtual.preco,
-                        preco_promocional: produtoAtual.preco_promocional
+                        produto_id: parseInt(produtoId),
+                        usuario_nome: nome,
+                        nota: notaSelecionada,
+                        comentario: comentario
                     })
                 });
                 const data = await response.json();
                 if (data.success) {
-                    alert('Produto adicionado ao carrinho!');
+                    mostrarToast('✅ Avaliação enviada com sucesso!');
+                    document.getElementById('avaliadorComentario').value = '';
+                    document.getElementById('avaliadorNome').value = '';
+                    selecionarNota(0);
+                    carregarAvaliacoes(produtoId);
+                } else {
+                    mostrarToast('❌ Erro ao enviar avaliação', 'error');
                 }
             } catch (error) {
-                console.error('Erro ao adicionar ao carrinho:', error);
-                alert('Erro ao adicionar ao carrinho');
+                console.error('Erro:', error);
+                mostrarToast('❌ Erro de conexão', 'error');
             }
         }
+
+        // ============================================================
+        // LOGO
+        // ============================================================
+
+        async function carregarLogo() {
+            try {
+                const res = await fetch('/api/config/logo');
+                const data = await res.json();
+                if (data.success && data.logo_url) {
+                    const img = document.getElementById('logoLoja');
+                    img.src = data.logo_url;
+                    img.style.display = 'block';
+                    document.getElementById('logoTexto').style.display = 'none';
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        // ============================================================
+        // CARRINHO
+        // ============================================================
+
+        async function atualizarBadgeCarrinho() {
+            try {
+                const res = await fetch('/api/carrinho');
+                const data = await res.json();
+                if (data.success && data.carrinho) {
+                    const total = data.carrinho.reduce((s, i) => s + (i.quantidade || 1), 0);
+                    document.getElementById('carrinhoBadge').textContent = total;
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function adicionarAoCarrinho() {
+            if (!produtoAtual) { mostrarToast('Produto não carregado', 'error'); return; }
+
+            try {
+                const res = await fetch('/api/carrinho', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        produto_id: produtoAtual.id,
+                        nome: produtoAtual.nome,
+                        preco: produtoAtual.preco,
+                        preco_promocional: produtoAtual.preco_promocional,
+                        imagem: imagensCarregadas[0] || null,
+                        quantidade: 1
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    mostrarToast('🛒 Adicionado à sacola!');
+                    atualizarBadgeCarrinho();
+                } else {
+                    mostrarToast('Erro ao adicionar', 'error');
+                }
+            } catch (e) {
+                console.error(e);
+                mostrarToast('Erro de conexão', 'error');
+            }
+        }
+
+        function comprarAgora() {
+            if (!produtoAtual) { mostrarToast('Produto não carregado', 'error'); return; }
+            window.location.href = '/checkout.html?produto=' + produtoAtual.id;
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+
+        function mostrarToast(msg, tipo = 'success') {
+            const existing = document.querySelector('.toast-custom');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-custom ' + (tipo === 'error' ? 'toast-error' : 'toast-success');
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================================
+        // TABS
+        // ============================================================
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('tab' + this.dataset.tab.charAt(0).toUpperCase() + this.dataset.tab.slice(1)).classList.add('active');
+            });
+        });
+
+        // ============================================================
+        // BUSCA
+        // ============================================================
 
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -231,7 +825,38 @@
             }
         });
 
+        // ============================================================
+        // EVENTOS
+        // ============================================================
+
+        document.getElementById('btnAdicionarCarrinho').addEventListener('click', adicionarAoCarrinho);
+        document.getElementById('mobileBtnCarrinho').addEventListener('click', adicionarAoCarrinho);
+        document.getElementById('btnComprarAgora').addEventListener('click', comprarAgora);
+
+        document.getElementById('favoritarBtn').addEventListener('click', function() {
+            this.classList.toggle('liked');
+            const icon = this.querySelector('i');
+            if (this.classList.contains('liked')) {
+                icon.setAttribute('data-lucide', 'heart');
+                lucide.createIcons();
+                mostrarToast('❤️ Adicionado aos favoritos');
+            } else {
+                icon.setAttribute('data-lucide', 'heart');
+                lucide.createIcons();
+                mostrarToast('Removido dos favoritos');
+            }
+        });
+
+        // ============================================================
+        // INICIAR
+        // ============================================================
+
+        lucide.createIcons();
         carregarProduto();
+
+        console.log('Página de produto Magalu carregada com sucesso!');
+        console.log('');
+        console.log('NUITBANKER');
     </script>
 
 </body>
